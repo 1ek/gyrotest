@@ -1,7 +1,6 @@
-window.addEventListener('DOMContentLoaded', function() {
+
 console.log("Hello world")
-google.charts.load('current', {packages: ['corechart']});
-google.charts.setOnLoadCallback(drawChart);
+// const Chart = require('chart.js');
 // const axis = document.querySelectorAll('.axis')
 const btn = document.querySelector('.starter')
 let isRunning = false 
@@ -20,10 +19,10 @@ function motionHandler(e) {
     ifNotNull('x', e.rotationRate.beta)
     ifNotNull('y', e.rotationRate.gamma)
     ifNotNull('z', e.rotationRate.alpha)
-    xG = e.rotationRate.beta
+    xG = +e.rotationRate.beta
     yG = +e.rotationRate.gamma
-    zG = e.rotationRate.alpha
-    drawChart()
+    zG = +e.rotationRate.alpha
+
 }
 
 btn.addEventListener('click', e => {
@@ -43,25 +42,21 @@ btn.addEventListener('click', e => {
         DeviceMotionEvent.requestPermission();
     }
 })
-    
-
-function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['x','y'],
-      [ 0, yG],
-     
-    ]);
-
-    var options = {
-      title: 'Company Performance',
-      curveType: 'function',
-      legend: { position: 'bottom' }
-    };
-
-    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-    chart.draw(data, options);
-  }
 
 
-})
+function getData() {
+    return Math.random()
+}
+
+function getY() {
+    return yG
+}
+
+Plotly.newPlot('chart', [{
+    y:[getY()],
+    type: 'line'
+}])
+
+setInterval(function() {
+    Plotly.extendTraces('chart', {y:[[getY()]]}, [0])
+}, 200)
