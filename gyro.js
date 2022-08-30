@@ -22,12 +22,30 @@ function motionHandler(e) {
     xG = +e.rotationRate.beta
     yG = +e.rotationRate.gamma
     zG = +e.rotationRate.alpha
-
+    Plotly.extendTraces('chartX', {y:[[getX()]]}, [0])
+    Plotly.extendTraces('chartY', {y:[[getY()]]}, [0])
+    Plotly.extendTraces('chartZ', {y:[[getZ()]]}, [0])
 }
 
 btn.addEventListener('click', e => {
     e.preventDefault();
     console.log("Pressed")
+
+    Plotly.newPlot('chartX', [{
+        y:[getX()],
+        type: 'line'
+    }])
+
+    Plotly.newPlot('chartY', [{
+        y:[getY()],
+        type: 'line'
+    }])
+
+    Plotly.newPlot('chartZ', [{
+        y:[getZ()],
+        type: 'line'
+    }])
+    
     if (isRunning) {
         btn.innerText = "START"
         isRunning = false
@@ -48,15 +66,17 @@ function getData() {
     return Math.random()
 }
 
+function getX() {
+    return xG
+}
 function getY() {
     return yG
 }
+function getZ() {
+    return zG
+}
 
-Plotly.newPlot('chart', [{
-    y:[getY()],
-    type: 'line'
-}])
 
-setInterval(function() {
-    Plotly.extendTraces('chart', {y:[[getY()]]}, [0])
-}, 200)
+// setInterval(function() {
+//     Plotly.extendTraces('chart', {y:[[getY()]]}, [0])
+// }, 200)
