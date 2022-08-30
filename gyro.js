@@ -22,9 +22,7 @@ function motionHandler(e) {
     xG = +e.rotationRate.beta
     yG = +e.rotationRate.gamma
     zG = +e.rotationRate.alpha
-    Plotly.extendTraces('chartX', {y:[[getX()]]}, [0])
-    Plotly.extendTraces('chartY', {y:[[getY()]]}, [0])
-    Plotly.extendTraces('chartZ', {y:[[getZ()]]}, [0])
+    
 }
 
 btn.addEventListener('click', e => {
@@ -77,6 +75,8 @@ function getZ() {
 }
 
 
-// setInterval(function() {
-//     Plotly.extendTraces('chart', {y:[[getY()]]}, [0])
-// }, 200)
+setInterval(function() {
+    Plotly.extendTraces('chartX', {y:[[getX()]]}, [0])
+    Plotly.extendTraces('chartY', {y:[[getY()]]}, [0])
+    Plotly.extendTraces('chartZ', {y:[[getZ()]]}, [0])
+}, 100)
