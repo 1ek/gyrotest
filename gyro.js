@@ -32,17 +32,14 @@ btn.addEventListener('click', e => {
     Plotly.newPlot('chartX', [{
         y:[getX()],
         type: 'line'
-    }])
+    }], {yaxis: {range: [-0.015, 0.015]}})
 
     Plotly.newPlot('chartY', [{
         y:[getY()],
         type: 'line'
-    }])
+    }], {yaxis: {range: [-0.015, 0.015]}})
 
-    Plotly.newPlot('chartZ', [{
-        y:[getZ()],
-        type: 'line'
-    }])
+    
     
     if (isRunning) {
         btn.innerText = "START"
@@ -78,5 +75,5 @@ function getZ() {
 setInterval(function() {
     Plotly.extendTraces('chartX', {y:[[getX()]]}, [0])
     Plotly.extendTraces('chartY', {y:[[getY()]]}, [0])
-    Plotly.extendTraces('chartZ', {y:[[getZ()]]}, [0])
+   
 }, 100)
