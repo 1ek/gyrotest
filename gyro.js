@@ -32,12 +32,12 @@ btn.addEventListener('click', e => {
     Plotly.newPlot('chartX', [{
         y:[getX()],
         type: 'line'
-    }], {yaxis: {range: [-0.015, 0.015]}})
+    }], {yaxis: {range: [-0.03, 0.03]}})
 
     Plotly.newPlot('chartY', [{
         y:[getY()],
         type: 'line'
-    }], {yaxis: {range: [-0.015, 0.015]}})
+    }], {yaxis: {range: [-0.03, 0.03]}})
 
     
     
