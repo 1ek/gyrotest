@@ -21,7 +21,7 @@ function motionHandler(e) {
     ifNotNull('y', e.rotationRate.gamma)
     ifNotNull('z', e.rotationRate.alpha)
     xG = e.rotationRate.beta
-    yG = e.rotationRate.gamma
+    yG = +e.rotationRate.gamma
     zG = e.rotationRate.alpha
     drawChart()
 }
