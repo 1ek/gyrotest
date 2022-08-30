@@ -1,18 +1,26 @@
 console.log("Hello world")
-let axis = document.querySelectorAll('.axis')
+const axis = document.querySelectorAll('.axis')
+const btn = document.querySelector('.starter')
 
-    if (
-      DeviceMotionEvent &&
-      typeof DeviceMotionEvent.requestPermission === "function"
-    ) {
-      DeviceMotionEvent.requestPermission();
-    }
-
-window.addEventListener("devicemotion", e => {
+function motionHandler(e) {
     axis[0].innerHTML = e.rotationRate.beta
     axis[1].innerHTML = e.rotationRate.gamma
     axis[2].innerHTML = e.rotationRate.alpha
-});
+}
+
+btn.addEventListener('click', e => {
+    e.preventDefault();
+    console.log("Pressed")
+    window.addEventListener("devicemotion", motionHandler)
+    if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function") {
+        DeviceMotionEvent.requestPermission();
+    }
+    
+})
+    
+
+
+
 
 
 // function handleOrientation(event) {
