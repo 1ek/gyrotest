@@ -32,12 +32,12 @@ btn.addEventListener('click', e => {
     Plotly.newPlot('chartX', [{
         y:[getX()],
         type: 'line'
-    }], {yaxis: {range: [-0.03, 0.03]}})
+    }], {yaxis: {range: [-0.3, 0.3]}})
 
     Plotly.newPlot('chartY', [{
         y:[getY()],
         type: 'line'
-    }], {yaxis: {range: [-0.03, 0.03]}})
+    }], {yaxis: {range: [-0.3, 0.3]}})
 
     
     
@@ -71,9 +71,22 @@ function getZ() {
     return zG
 }
 
-
+let cnt = 0
 setInterval(function() {
     Plotly.extendTraces('chartX', {y:[[getX()]]}, [0])
     Plotly.extendTraces('chartY', {y:[[getY()]]}, [0])
+    cnt++
+    if (cnt > 100) {
+        Plotly.relayout('chartX', {
+            xaxis: {
+                range: [cnt-100, cnt]
+            }
+        })
+        Plotly.relayout('chartY', {
+            xaxis: {
+                range: [cnt-100, cnt]
+            }
+        })
+    }
    
 }, 100)
