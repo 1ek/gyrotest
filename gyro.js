@@ -5,7 +5,7 @@ let isRunning = false
 
 function ifNotNull(id, value, amount = 5) {
     if (value != null) {
-        document.getElementById(id).value.toFixed(amount)
+        document.getElementById(id).innerHTML = value.toFixed(amount)
     }
 }
 
