@@ -1,4 +1,7 @@
+window.addEventListener('DOMContentLoaded', function() {
 console.log("Hello world")
+google.charts.load('current', {packages: ['corechart']});
+google.charts.setOnLoadCallback(drawChart);
 // const axis = document.querySelectorAll('.axis')
 const btn = document.querySelector('.starter')
 let isRunning = false 
@@ -9,13 +12,18 @@ function ifNotNull(id, value, amount = 5) {
     }
 }
 
+let xG = 0
+let yG = 0
+let zG = 0
+
 function motionHandler(e) {
     ifNotNull('x', e.rotationRate.beta)
     ifNotNull('y', e.rotationRate.gamma)
     ifNotNull('z', e.rotationRate.alpha)
-    // axis[0].innerHTML = e.rotationRate.beta.toFixed(5)
-    // axis[1].innerHTML = e.rotationRate.gamma.toFixed(5)
-    // axis[2].innerHTML = e.rotationRate.alpha.toFixed(5)
+    xG = e.rotationRate.beta
+    yG = e.rotationRate.gamma
+    zG = e.rotationRate.alpha
+    drawChart()
 }
 
 btn.addEventListener('click', e => {
@@ -37,48 +45,23 @@ btn.addEventListener('click', e => {
 })
     
 
+function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['x','y'],
+      [ 0, yG],
+     
+    ]);
+
+    var options = {
+      title: 'Company Performance',
+      curveType: 'function',
+      legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    chart.draw(data, options);
+  }
 
 
-
-
-// function handleOrientation(event) {
-//     updateFieldIfNotNull('Orientation_a', event.alpha);
-//     updateFieldIfNotNull('Orientation_b', event.beta);
-//     updateFieldIfNotNull('Orientation_g', event.gamma);
-//     incrementEventCount();
-//   }
-  
-//   function incrementEventCount(){
-//     let counterElement = document.getElementById("num-observed-events")
-//     let eventCount = parseInt(counterElement.innerHTML)
-//     counterElement.innerHTML = eventCount + 1;
-//   }
-  
-//   function updateFieldIfNotNull(fieldName, value, precision=10){
-//     if (value != null)
-//       document.getElementById(fieldName).innerHTML = value.toFixed(precision);
-//   }
-  
-//   function handleMotion(event) {
-//     updateFieldIfNotNull('Gyroscope_z', event.rotationRate.alpha);
-//     updateFieldIfNotNull('Gyroscope_x', event.rotationRate.beta);
-//     updateFieldIfNotNull('Gyroscope_y', event.rotationRate.gamma);
-//     incrementEventCount();
-//   }
-  
-//   let is_running = false;
-//   let demo_button = document.getElementById("start_demo");
-//   demo_button.onclick = function(e) {
-//     e.preventDefault();
-    
-//     // Request permission for iOS 13+ devices
-//     if (
-//       DeviceMotionEvent &&
-//       typeof DeviceMotionEvent.requestPermission === "function"
-//     ) {
-//       DeviceMotionEvent.requestPermission();
-//     }
-    
-
-
-  
+})
